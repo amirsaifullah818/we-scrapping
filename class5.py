@@ -1,0 +1,36 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+browser = webdriver.Chrome()
+
+browser.get("https://www.bbc.com/news")
+
+
+# scroll the website
+js_code_for_scrolling = """
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+})
+"""
+
+
+browser.execute_script(js_code_for_scrolling)
+
+
+bbcDivs = browser.find_element(By.CLASS_NAME, "hnNPAL")
+
+for bbcdiv in bbcDivs:
+    Headline = bbcdiv.find_element(By.CLASS_NAME, "eQumHa").text
+    Subtext =  bbcdiv.find_element(By.CLASS_NAME,  "ffnHHm").text
+    
+    print(f"A current BBC headline right now is {Headline} with its following subtext, {Subtext}")
+
+
+
+
+
+
+
+browser.quit()
